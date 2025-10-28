@@ -1,0 +1,71 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+' ===== Base =====
+class Member {
+  - full_name : String
+  - email : String
+  - phone : String
+  - address : String
+  - join_date : Date
+  - skills : List<String>
+  - interests : List<String>
+  --
+  + display() : String
+  + add_skill(skill:String) : void
+  + add_interest(interest:String) : void
+  + update_contact(email, phone, address) : void
+}
+
+' ===== Héritage =====
+class Student {
+  - student_id:int
+  - subscription_status : String <<Paid / Pending>>
+  --
+  + display() : String
+  + check_subscription() : String
+}
+
+class Teacher {
+  -teacher_id:int
+  + display() : String
+  + display_group() : String
+  + assign_event(event:Event) : void
+  + assign_group(event:Student) : void
+}
+
+Member <|-- Student
+Member <|-- Teacher
+
+' ===== Event =====
+class Event {
+  - event_name : String
+  - description : String
+  - event_date : Date
+  - organizers : List<Teacher>
+  - participants : List<Student>
+  --
+  + display() : String
+  + add_participant(s:Student) : void
+  + remove_participant(s:Student) : void
+}
+
+' ===== Subscription =====
+class Subscription {
+  - student_id : int  
+  - amount : float
+  - date : Date
+  - status : String <<paid/unpaid>>
+  --
+  + display() : String
+  + mark_paid() : void
+  + mark_unpaid() : void
+}
+
+' ===== Relations =====
+Student "1" -- "0..*" Subscription : has >
+Student "0..*" -- "0..*" Event : participates >
+Teacher "1..*" -- "0..*" Event : organizes >
+
+@enduml
