@@ -1,1 +1,1 @@
-"# Coran School Project 'Madrassa' (Python OOP)" 
+coran school project 'Madrassa',# GSI Academic Project.
